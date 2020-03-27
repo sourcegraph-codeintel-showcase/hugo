@@ -37,6 +37,13 @@ jobs:
       os: osx
     - arch: arm64
       os: windows
+  include:
+    - name: lsif index
+      script:
+        - go mod download
+        - go mod verify
+        - lsif-go
+        - src lsif upload
 
 cache:
   directories:
@@ -61,6 +68,8 @@ install:
   - export TRAVIS_BUILD_DIR=$HOME/src/hugo
   - cd $HOME/src/hugo
   - go get github.com/magefile/mage
+  - go get github.com/sourcegraph/lsif-go/cmd/lsif-go
+  - go get github.com/sourcegraph/src-cli/cmd/src
 
 script:
   - go mod download
